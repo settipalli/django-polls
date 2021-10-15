@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{#    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">#}
+    {%  load static %}
+    <link rel="stylesheet" href="{% static 'polls/tailwind.css' %}" type="text/css">
+    <title>Polls</title>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-2">
+        <h1 class="text-6xl border-b-2 text-gray-900 m-3 p-4">Polls App</h1>
+        {% if latest_question_list %}
+        <ul>
+            {% for question in latest_question_list %}
+            <li class="mt-2 px-4">
+<!--                <a class="hover:underline text-gray-800" href="/polls/{{question.id}}/">{{question.question_text}}</a>-->
+                <a class="hover:underline text-gray-800" href="{% url 'polls:detail' question.id %}">{{question.question_text}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No polls available.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

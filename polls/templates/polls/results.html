@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{#    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">#}
+    {%  load static %}
+    <link rel="stylesheet" href="{% static 'polls/tailwind.css' %}" type="text/css">
+    <title>Results</title>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-2">
+        <h1 class="text-6xl border-b-2 text-gray-800 m-3 p-4">{{question.question_text}}</h1>
+        {% if error_message %}
+        <p><strong>{{error_message}}</strong></p>
+        {% endif %}
+        <ul class="mb-4">
+        {% for choice in question.choice_set.all %}
+            <li class="m-2">
+                {{choice.choice_text}} <span class="ml-2 bg-blue-100 text-blud-800 px-2.5 py-0.5 rounded">{{choice.votes}} vote{{choice.votes | pluralize}}</span>
+            </li>
+        {% endfor %}
+        </ul>
+        <a class="bg-blue-500 hover:bg-blue-700 font-bold text-white py-2 px-4 rounded" href="{% url 'polls:detail' question.id %}">Vote again?</a>
+    </div>
+</body>
+</html>
